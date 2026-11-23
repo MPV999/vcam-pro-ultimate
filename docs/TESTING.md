@@ -7,17 +7,31 @@ Không có mục nào được đánh dấu "passed" nếu chưa thực sự ch�
 
 | Hạng mục | Trạng thái | Ghi chú |
 |---|---|---|
-| Unit test (JVM) | **Đã viết — CHƯA CHẠY** | Không có JDK/Android SDK trên thiết bị tạo mã nguồn |
-| Lint | **Chưa chạy** | Sẽ chạy trong `android-build.yml` |
-| Build debug APK | **Chưa chạy** | Sẽ chạy trên GitHub Actions |
-| Build release APK | **Chưa chạy** | Cần keystore + runner có Android SDK |
-| Instrumented test | **Đã viết — CHƯA CHẠY** | Cần emulator hoặc thiết bị thật |
+| CI `android-build.yml` | **Đã chạy thật** (GitHub Actions) | Lần 1–2: FAIL ở bước KSP — xem mục 1.1 |
+| Sửa lỗi từ CI | **Đã sửa** (`02e1e6a`) | index `export_history` dùng `exportedAt` |
+| Unit test (JVM) | Đã viết — chờ CI xác nhận | 21 test trong `app/src/test` |
+| Lint | Chờ CI xác nhận | `abortOnError = false` |
+| Build debug APK | Chờ CI xác nhận | CI tự phát hành APK thử nghiệm khi xanh |
+| Instrumented test | Đã viết — **chưa chạy** | Cần emulator hoặc thiết bị thật |
 | Test trên thiết bị thật | **Chưa thực hiện** | — |
-| Test Airplane Mode | **Chưa thực hiện** | Quy trình có trong `docs/INSTALLATION.md` mục 8 |
-| Xác minh chữ ký APK | **Chưa chạy** | `apksigner verify` được gọi trong workflow release |
+| Test Airplane Mode | **Chưa thực hiện** | Quy trình: `docs/INSTALLATION.md` mục 8 |
 
-Kết luận: **chưa có bằng chứng build/test thực tế** tại thời điểm bàn giao mã nguồn này.
-Bước tiếp theo bắt buộc là chạy CI (`android-build.yml`) để có kết quả thật.
+### 1.1 Bằng chứng CI thật (không phải suy đoán)
+
+Lần chạy đầu tiên của `Android CI` (commit `8b81ab1`) thất bại sau 2m22s.
+Vì log GitHub Actions yêu cầu đăng nhập, workflow được bổ sung bước đẩy lỗi Kotlin/KSP
+thành annotation. Lần chạy thứ hai (commit `cc740fa`) cho ra lỗi thật đầu tiên:
+
+```
+e: [ksp] .../core/data/Entities.kt:169: createdAt referenced in the index does not exists
+   in the Entity. Available column names: id, mediaId, outputPath, format, sizeBytes,
+   checksum, exportedAt
+```
+
+Đã sửa: `@Entity(tableName = "export_history", indices = [Index("exportedAt")])`.
+
+Đây là bằng chứng cho thấy: (a) pipeline build thật sự chạy, (b) cơ chế báo lỗi hoạt động,
+(c) các lỗi còn lại sẽ tiếp tục được phát hiện theo cùng cách cho tới khi build xanh.
 
 ## 2. Unit test đã viết
 
