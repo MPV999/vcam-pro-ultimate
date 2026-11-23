@@ -2,14 +2,14 @@
   "appName": "VCAM PRO ULTIMATE VIP 2026",
   "version": "1.0.0",
   "buildNumber": 1,
-  "releaseDate": "",
-  "apkSizeBytes": 0,
+  "releaseDate": "2025-11-23",
+  "apkSizeBytes": 108722633,
   "minAndroid": "Android 8.0 (API 26)",
   "architectures": ["arm64-v8a", "armeabi-v7a", "x86_64"],
-  "sha256": "",
-  "downloadUrl": "",
-  "sha256Url": "",
-  "releaseNotesUrl": "",
-  "repository": "",
-  "status": "pending"
+  "sha256": "dbe2c6c31a46d6c5f174d881b53c85ce681c89fbefc1f84e3541b93314c71324",
+  "downloadUrl": "https://github.com/MPV999/vcam-pro-ultimate/releases/download/latest-apk/vcam-pro-ultimate.apk",
+  "sha256Url": "https://github.com/MPV999/vcam-pro-ultimate/releases/download/latest-apk/vcam-pro-ultimate.apk.sha256",
+  "releaseNotesUrl": "https://github.com/MPV999/vcam-pro-ultimate/releases/tag/latest-apk",
+  "repository": "MPV999/vcam-pro-ultimate",
+  "status": "debug"
 }

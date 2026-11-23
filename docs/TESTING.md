@@ -7,11 +7,12 @@ Không có mục nào được đánh dấu "passed" nếu chưa thực sự ch�
 
 | Hạng mục | Trạng thái | Ghi chú |
 |---|---|---|
-| CI `android-build.yml` | **Đã chạy thật** (GitHub Actions) | Lần 1–2: FAIL ở bước KSP — xem mục 1.1 |
-| Sửa lỗi từ CI | **Đã sửa** (`02e1e6a`) | index `export_history` dùng `exportedAt` |
-| Unit test (JVM) | Đã viết — chờ CI xác nhận | 21 test trong `app/src/test` |
-| Lint | Chờ CI xác nhận | `abortOnError = false` |
-| Build debug APK | Chờ CI xác nhận | CI tự phát hành APK thử nghiệm khi xanh |
+| CI `android-build.yml` | **PASSED** — 5m 27s | commit `38f5b90`; 3 lần trước fail, xem mục 1.1 |
+| Compile Kotlin (debug) | **PASSED** | sau khi sửa 1 lỗi KSP + 7 lỗi biên dịch |
+| Lint | **PASSED** | `abortOnError = false` |
+| Unit test (JVM) | **PASSED** | 21 test trong `app/src/test` |
+| Build debug APK | **PASSED** | 108.722.633 bytes |
+| Phát hành APK thử nghiệm | **PASSED** | Release `latest-apk`, SHA-256 `dbe2c6c3…c71324` |
 | Instrumented test | Đã viết — **chưa chạy** | Cần emulator hoặc thiết bị thật |
 | Test trên thiết bị thật | **Chưa thực hiện** | — |
 | Test Airplane Mode | **Chưa thực hiện** | Quy trình: `docs/INSTALLATION.md` mục 8 |
@@ -30,8 +31,23 @@ e: [ksp] .../core/data/Entities.kt:169: createdAt referenced in the index does n
 
 Đã sửa: `@Entity(tableName = "export_history", indices = [Index("exportedAt")])`.
 
-Đây là bằng chứng cho thấy: (a) pipeline build thật sự chạy, (b) cơ chế báo lỗi hoạt động,
-(c) các lỗi còn lại sẽ tiếp tục được phát hiện theo cùng cách cho tới khi build xanh.
+Lần chạy kế tiếp (commit `38f5b90` là lần sửa cuối) trả về 7 lỗi biên dịch, tất cả đã sửa:
+
+```
+LockScreen.kt:83        Unresolved reference 'background'        → thiếu import foundation.background
+ProcessingWorker.kt:87  Unresolved reference 'BATCH_EXPORT'     → TaskType thiếu hằng BATCH_EXPORT
+ProcessingScreen.kt:124 Unresolved reference 'BATCH_EXPORT'     → (cùng nguyên nhân)
+CameraScreen.kt:508     Unresolved reference 'recording'        → biến ngoài phạm vi Row
+CameraController.kt:181 Unresolved reference 'hasFocusUnit'     → CameraInfo không có API này
+VisionEngine.kt:50      suspend trong default parameter value   → đổi mode thành String? = null
+Components.kt:267       Unresolved reference 'NeonLime'         → thiếu import theme
+```
+
+Kết quả sau khi sửa: **job PASSED sau 5m 27s**, gồm compile, lint, 21 unit test,
+`assembleDebug` và bước phát hành APK thử nghiệm lên GitHub Releases.
+
+Đây là bằng chứng cho thấy pipeline thật sự chạy và mọi tuyên bố "đã build" trong
+tài liệu này đều có log CI tương ứng.
 
 ## 2. Unit test đã viết
 

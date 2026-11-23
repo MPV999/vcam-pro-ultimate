@@ -146,12 +146,22 @@ jobs:
       - name: Commit release metadata
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
+          set -e
           cd ..
+          cp website/data/release.json "$RUNNER_TEMP/release.json"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # main có thể đã tiến lên trong lúc build, nên đồng bộ lại rồi mới commit.
+          git fetch origin main
+          git reset --hard origin/main
+          cp "$RUNNER_TEMP/release.json" website/data/release.json
           git add website/data/release.json
-          git commit -m "chore: cập nhật metadata APK thử nghiệm $(date -u +%Y-%m-%d)" || echo "Không có thay đổi"
-          git push || echo "Không push được metadata (bỏ qua)"
+          if git diff --cached --quiet; then
+            echo "Không có thay đổi metadata"
+          else
+            git commit -m "chore: cập nhật metadata APK thử nghiệm $(date -u +%Y-%m-%d)"
+            git push origin HEAD:main
+          fi
 
       - name: Upload test and lint reports
         if: always()
