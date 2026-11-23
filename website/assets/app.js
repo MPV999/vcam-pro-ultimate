@@ -73,6 +73,24 @@
       );
       setText("[data-release='sha256']", data.sha256 || "Sẽ được công bố khi phát hành");
       setText("[data-release='status']", statusLabel(status));
+
+      // Mỗi lần CI build lại, APK được tạo mới nên hash thay đổi.
+      // Đọc file .sha256 thật từ GitHub Releases để con số hiển thị luôn khớp file đang tải.
+      if (data.sha256Url) {
+        fetch(data.sha256Url, { cache: "no-store" })
+          .then(function (response) {
+            return response.ok ? response.text() : Promise.reject(new Error("no hash"));
+          })
+          .then(function (text) {
+            var hash = text.trim().split(/\s+/)[0];
+            if (hash && hash.length === 64) {
+              setText("[data-release='sha256']", hash);
+            }
+          })
+          .catch(function () {
+            /* giữ giá trị trong release.json nếu không tải được */
+          });
+      }
     }
 
     if (hasDownload) {
