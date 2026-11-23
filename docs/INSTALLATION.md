@@ -82,10 +82,17 @@ chỉ dùng để thử nghiệm.
 ## 5. Bật GitHub Pages
 
 Settings → Pages → Source: **GitHub Actions**.
-Sau lần push đầu tiên vào `main`, workflow `pages.yml` sẽ xuất bản thư mục `website/`.
+
+Lưu ý: `actions/configure-pages` với `enablement: true` **không thể tự bật Pages** bằng
+`GITHUB_TOKEN` mặc định — job sẽ báo `Resource not accessible by integration`. Vì vậy
+bước bật Pages phải làm **một lần bằng tay** trong Settings của repository. Sau đó
+workflow `pages.yml` sẽ deploy thành công ở mỗi lần push.
 
 URL dự kiến: `https://<user>.github.io/<repo>/`
 Trang tải: `https://<user>.github.io/<repo>/download.html`
+
+Trong khi Pages chưa bật, website vẫn xem được qua bản publish của FreeMilk
+(nút Publish trong Project Details).
 
 ## 6. Chạy website local
 
