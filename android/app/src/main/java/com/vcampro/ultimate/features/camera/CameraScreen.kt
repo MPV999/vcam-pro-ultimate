@@ -505,7 +505,7 @@ fun CameraScreen(
                 }
             }
 
-            if (recording) {
+            if (cameraState.isRecording) {
                 Spacer(Modifier.height(10.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),

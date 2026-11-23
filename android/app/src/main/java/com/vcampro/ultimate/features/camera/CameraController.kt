@@ -178,7 +178,7 @@ class CameraController(private val context: Context) {
                     "${info.resolution.width}×${info.resolution.height}"
                 } ?: "—",
                 maxFps = maxFps,
-                focusSupported = camera.cameraInfo.hasFocusUnit(),
+                focusSupported = readFocusSupport(cameraId),
                 exposureMin = minExp,
                 exposureMax = maxExp,
                 exposureIndex = (minExp + maxExp) / 2
@@ -194,6 +194,17 @@ class CameraController(private val context: Context) {
             ?.maxOfOrNull { it.upper } ?: 30
     } catch (_: Throwable) {
         30
+    }
+
+    /** CameraX không phơi bày khả năng lấy nét, nên đọc trực tiếp từ Camera2. */
+    @OptIn(ExperimentalCamera2Interop::class)
+    private fun readFocusSupport(cameraId: String): Boolean = try {
+        val manager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        val characteristics = manager.getCameraCharacteristics(cameraId)
+        val modes = characteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES)
+        modes != null && modes.any { it != CameraCharacteristics.CONTROL_AF_MODE_OFF }
+    } catch (_: Throwable) {
+        false
     }
 
     @OptIn(ExperimentalCamera2Interop::class)

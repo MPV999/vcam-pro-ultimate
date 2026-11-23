@@ -36,6 +36,7 @@ object TaskType {
     const val VIDEO_ANALYSIS = "VIDEO_ANALYSIS"
     const val PHOTO_EXPORT = "PHOTO_EXPORT"
     const val VIDEO_EXPORT = "VIDEO_EXPORT"
+    const val BATCH_EXPORT = "BATCH_EXPORT"
     const val BATCH_EDIT = "BATCH_EDIT"
     const val THUMBNAIL = "THUMBNAIL"
 }

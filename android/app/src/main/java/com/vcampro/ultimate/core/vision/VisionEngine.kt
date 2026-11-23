@@ -5,7 +5,6 @@ import com.vcampro.ultimate.core.common.Formatters
 import com.vcampro.ultimate.core.data.PerformanceMode
 import com.vcampro.ultimate.core.prefs.SettingsRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,8 +14,8 @@ import kotlin.math.max
  * Cổng vào duy nhất của AI Vision Engine.
  *
  * Luồng quyết định engine:
- *  1. Chế độ HIGH ACCURACY + có model MediaPipe  -> MediaPipe Face Landmarker
- *  2. Còn lại                                     -> ML Kit Face Detection (bundled)
+ *  1. Chế độ PERFORMANCE + có model MediaPipe  -> MediaPipe Face Landmarker
+ *  2. Còn lại                                  -> ML Kit Face Detection (bundled)
  *
  * Không có nhánh nào gọi Internet. Không có kết quả giả lập.
  */
@@ -45,16 +44,21 @@ class VisionEngine @Inject constructor(
         )
     }
 
+    /**
+     * [mode] = null nghĩa là dùng chế độ hiện tại trong Settings.
+     * (Không thể đặt giá trị mặc định bằng lời gọi suspend.)
+     */
     suspend fun analyze(
         bitmap: Bitmap,
-        mode: String = currentMode()
+        mode: String? = null
     ): VisionReport = withContext(Dispatchers.Default) {
+        val activeMode = mode ?: currentMode()
         val start = System.currentTimeMillis()
         val notes = mutableListOf<String>()
 
-        val quality = qualityAnalyzer.analyze(bitmap, mode)
+        val quality = qualityAnalyzer.analyze(bitmap, activeMode)
 
-        val useMediaPipe = mode == PerformanceMode.PERFORMANCE && mediaPipe.isReady()
+        val useMediaPipe = activeMode == PerformanceMode.PERFORMANCE && mediaPipe.isReady()
         val engineName: String
         var faces: List<FaceObservation>
 
@@ -63,18 +67,18 @@ class VisionEngine @Inject constructor(
             faces = mediaPipe.detect(bitmap)
             if (faces.isEmpty()) {
                 notes += "MediaPipe không thấy khuôn mặt, đã thử lại bằng ML Kit."
-                faces = mlKit.detect(bitmap, mode)
+                faces = mlKit.detect(bitmap, activeMode)
             }
         } else {
             engineName = VisionEngineKind.ML_KIT
-            faces = mlKit.detect(bitmap, mode)
-            if (mode == PerformanceMode.PERFORMANCE && !mediaPipe.isReady()) {
+            faces = mlKit.detect(bitmap, activeMode)
+            if (activeMode == PerformanceMode.PERFORMANCE && !mediaPipe.isReady()) {
                 notes += "Chưa có model MediaPipe (assets/${MediaPipeFaceEngine.MODEL_ASSET}) — dùng ML Kit."
             }
         }
 
         // Giới hạn số khuôn mặt theo chế độ để giữ UI mượt
-        val limit = when (mode) {
+        val limit = when (activeMode) {
             PerformanceMode.ECONOMY -> 3
             PerformanceMode.BALANCED -> 5
             else -> 10
@@ -97,7 +101,7 @@ class VisionEngine @Inject constructor(
 
         VisionReport(
             engine = engineName,
-            mode = mode,
+            mode = activeMode,
             faces = faces,
             quality = quality,
             landmarkCoverage = coverage,

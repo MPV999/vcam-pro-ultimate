@@ -1,5 +1,6 @@
 package com.vcampro.ultimate.features.security
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

@@ -39,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vcampro.ultimate.core.ui.theme.NeonCyan
+import com.vcampro.ultimate.core.ui.theme.NeonLime
 import com.vcampro.ultimate.core.ui.theme.NeonMagenta
 import com.vcampro.ultimate.core.ui.theme.NeonViolet
 import kotlin.math.max
