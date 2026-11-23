@@ -165,7 +165,7 @@ data class ActivityLogEntity(
     val createdAt: Long
 )
 
-@Entity(tableName = "export_history", indices = [Index("createdAt")])
+@Entity(tableName = "export_history", indices = [Index("exportedAt")])
 data class ExportHistoryEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
     val mediaId: Long?,
