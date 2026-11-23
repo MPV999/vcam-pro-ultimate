@@ -23,15 +23,17 @@ adb install -r vcam-pro-ultimate.apk
 
 ```bash
 cd android
-./gradlew :app:assembleDebug
+gradle :app:assembleDebug
 ```
 
-Nếu wrapper chưa chạy được trên máy mới:
-
-```bash
-cd android
-gradle wrapper --gradle-version 8.11.1
-```
+> Repository không commit `gradle/wrapper/gradle-wrapper.jar` (bộ publish tĩnh của FreeMilk
+> từ chối file `.jar`). Nếu muốn dùng wrapper, chạy một lần:
+>
+> ```bash
+> cd android && gradle wrapper --gradle-version 8.11.1
+> ```
+>
+> Sau đó có thể dùng `./gradlew` như bình thường (file jar sẽ bị `.gitignore` bỏ qua).
 
 Mở bằng Android Studio: `File → Open → android/`.
 

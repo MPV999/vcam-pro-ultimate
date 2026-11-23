@@ -78,16 +78,21 @@ vcam-pro-ultimate/
 ### Yêu cầu môi trường
 - JDK 17
 - Android SDK 35 (compileSdk 35), minSdk 26
-- Gradle 8.11.1 (đã có wrapper)
+- Gradle 8.11.1
+
+> Wrapper jar (`gradle/wrapper/gradle-wrapper.jar`) **không được commit** vì bộ publish
+> tĩnh của FreeMilk từ chối file `.jar` khi xuất bản website trong cùng repository.
+> CI dùng Gradle 8.11.1 do `gradle/actions/setup-gradle` cài. Khi build local, chạy
+> `gradle wrapper --gradle-version 8.11.1` một lần nếu bạn muốn dùng `./gradlew`.
 
 ### Lệnh
 
 ```bash
 cd android
-./gradlew :app:assembleDebug      # APK debug
-./gradlew :app:testDebugUnitTest  # unit test
-./gradlew :app:lintDebug          # lint
-./gradlew :app:assembleRelease    # APK release (cần keystore để ký thật)
+gradle :app:assembleDebug      # APK debug
+gradle :app:testDebugUnitTest  # unit test
+gradle :app:lintDebug          # lint
+gradle :app:assembleRelease    # APK release (cần keystore để ký thật)
 ```
 
 APK đầu ra: `android/app/build/outputs/apk/debug/app-debug.apk`.

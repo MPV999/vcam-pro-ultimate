@@ -5,6 +5,9 @@ android/app/build/
 android/local.properties
 android/.idea/
 android/captures/
+android/gradlew
+android/gradlew.bat
+android/gradle/wrapper/gradle-wrapper.jar
 android/app/release/
 android/app/debug/
 *.apk
