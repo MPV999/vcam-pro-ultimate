@@ -1,0 +1,37 @@
+# Android / Gradle
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+android/captures/
+android/app/release/
+android/app/debug/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.hprof
+build/
+
+# Signing — KHÔNG BAO GIỜ commit
+*.jks
+*.keystore
+keystore.properties
+release-keystore/
+.env
+.env.*
+
+# AI models tải về (không commit file nặng)
+android/app/src/main/assets/models/*.task
+android/app/src/main/assets/models/*.tflite
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.iml
+.vscode/
+
+# Node (chỉ dùng khi build website tĩnh)
+node_modules/

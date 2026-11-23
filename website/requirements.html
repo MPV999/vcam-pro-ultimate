@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yêu cầu hệ thống — VCAM PRO ULTIMATE VIP 2026</title>
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">V</span> VCAM PRO</a>
+    <button class="nav-toggle" type="button">Menu</button>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="features.html">Tính năng</a>
+      <a href="download.html">Tải APK</a>
+      <a href="changelog.html">Phiên bản</a>
+      <a href="install.html">Cài đặt</a>
+      <a class="active" href="requirements.html">Yêu cầu</a>
+      <a href="privacy.html">Quyền riêng tư</a>
+      <a href="about.html">Giới thiệu</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding-bottom:16px">
+    <div class="container">
+      <span class="eyebrow">Tương thích</span>
+      <h1>Yêu cầu hệ thống</h1>
+      <p class="lead">VCAM PRO chạy trên Android 8.0 trở lên và tự điều chỉnh theo phần cứng thực tế.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="container">
+      <div class="card">
+        <table class="spec-table">
+          <tr><th>Hệ điều hành</th><td>Android 8.0 (API 26) trở lên</td></tr>
+          <tr><th>Kiến trúc CPU</th><td>arm64-v8a (khuyến nghị), armeabi-v7a, x86_64 (emulator)</td></tr>
+          <tr><th>Camera</th><td>Bắt buộc có ít nhất một camera. Một số chức năng (flash, exposure EV, chống rung) phụ thuộc phần cứng.</td></tr>
+          <tr><th>Micro</th><td>Tuỳ chọn — chỉ cần khi quay video có âm thanh</td></tr>
+          <tr><th>RAM</th><td>3 GB tối thiểu · 4–6 GB khuyến nghị · 8 GB+ cho chế độ Hiệu năng cao</td></tr>
+          <tr><th>Dung lượng trống</th><td>≥ 500 MB để chạy · ≥ 2 GB để export video dài</td></tr>
+          <tr><th>Sinh trắc học</th><td>Tuỳ chọn — cần cảm biến vân tay/khuôn mặt đã thiết lập trong hệ điều hành</td></tr>
+          <tr><th>Internet</th><td><strong>Không cần.</strong> Ứng dụng không khai báo quyền INTERNET.</td></tr>
+        </table>
+      </div>
+
+      <div class="section-head" style="margin-top:28px">
+        <h2>Ba chế độ hiệu năng</h2>
+        <p>Ứng dụng đề xuất chế độ dựa trên RAM và số nhân CPU đọc từ thiết bị.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <span class="pill warn">ECONOMY</span>
+          <h3>Tiết kiệm</h3>
+          <p>Ảnh phân tích thu về 640 px, ít frame video hơn, tối đa 3 khuôn mặt. Phù hợp máy RAM dưới 3 GB hoặc CPU 4 nhân.</p>
+        </div>
+        <div class="card">
+          <span class="pill info">BALANCED</span>
+          <h3>Cân bằng</h3>
+          <p>Ảnh 1024 px, số frame tiêu chuẩn, tối đa 5 khuôn mặt. Mặc định cho phần lớn thiết bị.</p>
+        </div>
+        <div class="card">
+          <span class="pill">PERFORMANCE</span>
+          <h3>Hiệu năng cao</h3>
+          <p>Ảnh tới 1920 px, gấp đôi số frame, dùng MediaPipe Face Landmarker nếu model đã đóng gói.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <h3 style="margin-top:0">Giới hạn phụ thuộc phần cứng</h3>
+        <ul style="color:var(--muted);font-size:14px;margin:0;padding-left:18px">
+          <li>Phơi sáng thủ công (EV) chỉ hiển thị khi thiết bị hỗ trợ AE compensation qua Camera2 interop.</li>
+          <li>Pause/Resume khi quay video phụ thuộc CameraX và encoder của thiết bị.</li>
+          <li>Độ phân giải và FPS tối đa lấy từ CameraCharacteristics thực tế, không quảng cáo mức không hỗ trợ.</li>
+          <li>Thời gian export video tỉ lệ với độ dài và độ phân giải; máy nóng có thể giảm tốc.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 VCAM PRO ULTIMATE VIP.</span>
+      <a href="install.html">Hướng dẫn cài đặt</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

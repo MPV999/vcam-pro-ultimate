@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <files-path
+        name="vcam_media"
+        path="media/" />
+    <files-path
+        name="vcam_export"
+        path="export/" />
+    <files-path
+        name="vcam_profiles"
+        path="profiles/" />
+    <cache-path
+        name="vcam_cache"
+        path="." />
+</paths>

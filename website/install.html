@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hướng dẫn cài đặt — VCAM PRO ULTIMATE VIP 2026</title>
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">V</span> VCAM PRO</a>
+    <button class="nav-toggle" type="button">Menu</button>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="features.html">Tính năng</a>
+      <a href="download.html">Tải APK</a>
+      <a href="changelog.html">Phiên bản</a>
+      <a class="active" href="install.html">Cài đặt</a>
+      <a href="requirements.html">Yêu cầu</a>
+      <a href="privacy.html">Quyền riêng tư</a>
+      <a href="about.html">Giới thiệu</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding-bottom:16px">
+    <div class="container">
+      <span class="eyebrow">Cài đặt</span>
+      <h1>Cài APK trong 5 bước</h1>
+      <p class="lead">APK được phân phối ngoài Google Play nên bạn cần bật cài đặt từ nguồn không xác định.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="container">
+      <div class="steps">
+        <div class="step">
+          <div>
+            <h3>Tải file APK</h3>
+            <p>Mở <a href="download.html">trang tải</a> trên chính điện thoại Android và tải <code>vcam-pro-ultimate.apk</code>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Kiểm tra SHA-256 (khuyến nghị)</h3>
+            <p>So sánh mã SHA-256 trên trang tải với mã tính từ file. Nếu khác nhau, xoá file và tải lại.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Cho phép cài từ nguồn không xác định</h3>
+            <p>Cài đặt → Ứng dụng → Trình quản lý file/Chrome → Cài đặt không xác định → Bật.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Mở file và cài đặt</h3>
+            <p>Mở file trong thư mục Downloads, chọn Cài đặt. Nếu có cảnh báo Play Protect, chọn “Vẫn cài đặt”.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Cấp quyền cần thiết</h3>
+            <p>Camera và micro (để quay video có tiếng). Ứng dụng <strong>không</strong> yêu cầu quyền Internet.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <h3 style="margin-top:0">Cài đặt qua ADB (dành cho kiểm thử)</h3>
+        <pre>adb install -r vcam-pro-ultimate.apk
+adb shell pm list packages | grep vcampro</pre>
+        <p style="color:var(--muted);font-size:14px">
+          Gỡ bản debug trước khi cài bản release nếu package name khác nhau
+          (<code>com.vcampro.ultimate.debug</code> so với <code>com.vcampro.ultimate</code>).
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">Kiểm chứng chế độ offline</h3>
+        <p style="color:var(--muted);font-size:14px;margin:0">
+          Sau khi cài, bật Airplane Mode rồi lần lượt mở Camera, chụp ảnh, quay video, tạo hồ sơ,
+          phân tích AI, chỉnh ảnh, xuất video và mở lại thư viện. Tất cả phải hoạt động bình thường —
+          ứng dụng không có quyền INTERNET nên không thể phụ thuộc máy chủ.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 VCAM PRO ULTIMATE VIP.</span>
+      <a href="requirements.html">Yêu cầu hệ thống</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

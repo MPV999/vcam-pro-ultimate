@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Giới thiệu — VCAM PRO ULTIMATE VIP 2026</title>
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">V</span> VCAM PRO</a>
+    <button class="nav-toggle" type="button">Menu</button>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="features.html">Tính năng</a>
+      <a href="download.html">Tải APK</a>
+      <a href="changelog.html">Phiên bản</a>
+      <a href="install.html">Cài đặt</a>
+      <a href="requirements.html">Yêu cầu</a>
+      <a href="privacy.html">Quyền riêng tư</a>
+      <a class="active" href="about.html">Giới thiệu</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding-bottom:16px">
+    <div class="container">
+      <span class="eyebrow">Giới thiệu</span>
+      <h1>Một thiết bị.<br /><span class="gradient-text">Toàn quyền kiểm soát.</span></h1>
+      <p class="lead">
+        VCAM PRO ULTIMATE VIP 2026 được xây dựng theo một nguyên tắc duy nhất: ứng dụng phải
+        hoạt động đầy đủ khi không có Internet, không có tài khoản và không có máy chủ.
+      </p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="container">
+      <div class="card">
+        <table class="spec-table">
+          <tr><th>VPS Required</th><td>NO</td></tr>
+          <tr><th>Backend Required</th><td>NO</td></tr>
+          <tr><th>Database Server Required</th><td>NO</td></tr>
+          <tr><th>Cloud AI Required</th><td>NO</td></tr>
+          <tr><th>Online Activation Required</th><td>NO</td></tr>
+          <tr><th>Core App Internet Dependency</th><td>NO</td></tr>
+          <tr><th>Quyền INTERNET trong manifest</th><td>Không khai báo</td></tr>
+        </table>
+      </div>
+
+      <div class="grid" style="margin-top:20px">
+        <div class="card">
+          <h3 style="margin-top:0">Kiến trúc</h3>
+          <p>Kotlin + Jetpack Compose, phân lớp rõ ràng: core (data, media, vision, security, device, ui) và features (14 màn hình). Không có module backend.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">AI local</h3>
+          <p>Model ML Kit được đóng gói trong APK. MediaPipe Face Landmarker là tuỳ chọn: nếu chưa có file model trong assets, hệ thống tự chuyển sang ML Kit và ghi chú rõ — không sinh kết quả giả.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Phân phối</h3>
+          <p>Website tĩnh + GitHub Pages, APK trên GitHub Releases, build và ký tự động bằng GitHub Actions. Không cần thuê server ở bất kỳ bước nào.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <h3 style="margin-top:0">Sử dụng có trách nhiệm</h3>
+        <p style="color:var(--muted)">
+          VCAM PRO là ứng dụng camera và studio chỉnh sửa media. Ứng dụng không cung cấp camera ảo
+          để thay thế luồng camera của ứng dụng khác, không giả mạo danh tính, không vượt qua xác thực
+          sinh trắc học hay kiểm tra liveness, và không can thiệp vào ứng dụng ngân hàng.
+        </p>
+        <p style="color:var(--muted)">
+          Khi ghi hình người khác, bạn phải có sự đồng ý của họ. Hồ sơ khuôn mặt trong ứng dụng có
+          trường “Consent Record” để bạn lưu lại xác nhận đó.
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">Giới hạn đã biết</h3>
+        <ul style="color:var(--muted);font-size:14.5px;padding-left:18px">
+          <li>Đổi tốc độ video chưa được hỗ trợ (Media3 Transformer không có hiệu ứng speed dựng sẵn).</li>
+          <li>Phơi sáng thủ công phụ thuộc khả năng AE compensation của thiết bị.</li>
+          <li>Tạm dừng tác vụ nền là huỷ + chạy lại từ đầu, do WorkManager không hỗ trợ pause thật.</li>
+          <li>Phát hiện che khuất khuôn mặt là ước lượng heuristic từ landmark, không phải model chuyên dụng.</li>
+          <li>Xoá an toàn chỉ là best-effort trên bộ nhớ flash.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">Giấy phép thư viện</h3>
+        <p style="color:var(--muted);margin:0">
+          AndroidX &amp; Jetpack (Apache 2.0) · Kotlin (Apache 2.0) · Media3 (Apache 2.0) ·
+          MediaPipe (Apache 2.0) · ML Kit (điều khoản Google) · Room, DataStore, WorkManager, Hilt (Apache 2.0).
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 VCAM PRO ULTIMATE VIP. ONE DEVICE. ONE APP. FULL CONTROL. ZERO VPS.</span>
+      <a href="privacy.html">Chính sách riêng tư</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "appName": "VCAM PRO ULTIMATE VIP 2026",
+  "version": "1.0.0",
+  "buildNumber": 1,
+  "releaseDate": "",
+  "apkSizeBytes": 0,
+  "minAndroid": "Android 8.0 (API 26)",
+  "architectures": ["arm64-v8a", "armeabi-v7a", "x86_64"],
+  "sha256": "",
+  "downloadUrl": "",
+  "sha256Url": "",
+  "releaseNotesUrl": "",
+  "repository": "",
+  "status": "pending"
+}

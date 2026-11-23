@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lịch sử phiên bản — VCAM PRO ULTIMATE VIP 2026</title>
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">V</span> VCAM PRO</a>
+    <button class="nav-toggle" type="button">Menu</button>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="features.html">Tính năng</a>
+      <a href="download.html">Tải APK</a>
+      <a class="active" href="changelog.html">Phiên bản</a>
+      <a href="install.html">Cài đặt</a>
+      <a href="requirements.html">Yêu cầu</a>
+      <a href="privacy.html">Quyền riêng tư</a>
+      <a href="about.html">Giới thiệu</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding-bottom:16px">
+    <div class="container">
+      <span class="eyebrow">Changelog</span>
+      <h1>Lịch sử phiên bản</h1>
+      <p class="lead">Mỗi bản phát hành được build tự động và ký bằng keystore của nhà phát triển.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="container">
+      <div class="card">
+        <div class="release">
+          <h3>v<span data-release="version">1.0.0</span> — Bản đầu tiên</h3>
+          <time data-release="date">Chưa phát hành</time>
+          <ul>
+            <li>Camera Studio: chụp ảnh, quay video, zoom, focus, torch, hẹn giờ, lưới bố cục.</li>
+            <li>AI Vision offline: face detection, landmark, tư thế đầu, điểm chất lượng ảnh.</li>
+            <li>Photo Studio: 7 công cụ chỉnh sửa, 7 bộ lọc, undo/redo, so sánh trước–sau.</li>
+            <li>Video Studio: trim, xoay, lật, tắt tiếng, nén 720p, trích frame.</li>
+            <li>Media Library: tìm kiếm, lọc, chọn hàng loạt, import SAF.</li>
+            <li>Processing Center: hàng đợi WorkManager với pause/resume/cancel/retry.</li>
+            <li>Device Center &amp; Security Center: thông tin phần cứng, Keystore, PIN, sinh trắc học.</li>
+            <li>Dashboard đọc số liệu thật từ Room database.</li>
+          </ul>
+        </div>
+
+        <div class="notice">
+          Trạng thái hiện tại: <strong data-release="status">chưa phát hành</strong>.
+          Khi repository được gắn tag <code>v1.0.0</code>, GitHub Actions sẽ build, ký,
+          tính SHA-256 và công bố file APK tại đây.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Quy trình phát hành</h2>
+        <p>Tất cả tự động, không cần VPS.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div>
+            <h3>Gắn tag phiên bản</h3>
+            <p><code>git tag v1.0.0 &amp;&amp; git push origin v1.0.0</code></p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>CI build &amp; ký APK</h3>
+            <p>Workflow <code>android-release.yml</code> chạy lint, unit test, build release, ký bằng secrets.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Công bố GitHub Release</h3>
+            <p>APK và file SHA-256 được đính kèm vào release công khai.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Cập nhật website</h3>
+            <p>CI ghi lại <code>website/data/release.json</code> để trang tải hiển thị đúng phiên bản, dung lượng và SHA-256.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 VCAM PRO ULTIMATE VIP.</span>
+      <a href="download.html">Tải APK</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

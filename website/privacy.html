@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chính sách riêng tư — VCAM PRO ULTIMATE VIP 2026</title>
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">V</span> VCAM PRO</a>
+    <button class="nav-toggle" type="button">Menu</button>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="features.html">Tính năng</a>
+      <a href="download.html">Tải APK</a>
+      <a href="changelog.html">Phiên bản</a>
+      <a href="install.html">Cài đặt</a>
+      <a href="requirements.html">Yêu cầu</a>
+      <a class="active" href="privacy.html">Quyền riêng tư</a>
+      <a href="about.html">Giới thiệu</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding-bottom:16px">
+    <div class="container">
+      <span class="eyebrow">Pháp lý</span>
+      <h1>Chính sách riêng tư</h1>
+      <p class="lead">Cập nhật lần cuối: 01/01/2026 · Áp dụng cho ứng dụng VCAM PRO ULTIMATE VIP 2026.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="container">
+      <div class="card">
+        <h3 style="margin-top:0">1. Nguyên tắc cốt lõi</h3>
+        <p style="color:var(--muted)">
+          VCAM PRO xử lý toàn bộ dữ liệu trên thiết bị của bạn. Ứng dụng <strong>không</strong> khai báo
+          quyền <code>android.permission.INTERNET</code> trong manifest, nghĩa là ở mức hệ điều hành
+          ứng dụng không thể gửi dữ liệu ra mạng.
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">2. Dữ liệu được lưu trên thiết bị</h3>
+        <ul style="color:var(--muted);font-size:14.5px;padding-left:18px">
+          <li>Ảnh và video bạn chụp, quay hoặc import.</li>
+          <li>Hồ sơ khuôn mặt: tên, nhóm, mô tả, thumbnail, metadata, bản ghi đồng ý.</li>
+          <li>Kết quả phân tích AI (số khuôn mặt, điểm chất lượng, thời gian xử lý).</li>
+          <li>Hàng đợi tác vụ và lịch sử xuất file (bao gồm SHA-256).</li>
+          <li>Cấu hình ứng dụng (DataStore) và nhật ký hoạt động local.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">3. Dữ liệu KHÔNG bao giờ được thu thập</h3>
+        <ul style="color:var(--muted);font-size:14.5px;padding-left:18px">
+          <li>Không analytics, không crash reporting từ xa, không quảng cáo.</li>
+          <li>Không tài khoản, không đăng nhập, không định danh người dùng.</li>
+          <li>Không vị trí, không danh bạ, không tin nhắn, không lịch sử cuộc gọi.</li>
+          <li>Không OTP, PIN ngân hàng hay mật khẩu của dịch vụ khác.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">4. Chia sẻ dữ liệu</h3>
+        <p style="color:var(--muted)">
+          Dữ liệu chỉ rời thiết bị khi bạn chủ động export hoặc chia sẻ qua hộp thoại hệ thống.
+          VCAM PRO không tự động tải ảnh/video lên bất kỳ dịch vụ nào.
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">5. Bảo mật</h3>
+        <ul style="color:var(--muted);font-size:14.5px;padding-left:18px">
+          <li>Khoá AES-256-GCM nằm trong Android Keystore, không thể export.</li>
+          <li>PIN được băm bằng PBKDF2-HMAC-SHA256 với salt ngẫu nhiên (120.000 vòng).</li>
+          <li>Sinh trắc học sử dụng API của hệ điều hành; ứng dụng không truy cập dữ liệu vân tay/khuôn mặt thô.</li>
+          <li>Xoá an toàn là biện pháp best-effort: dữ liệu được ghi đè trước khi xoá, nhưng không thể bảo đảm tuyệt đối trên bộ nhớ flash hiện đại.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">6. Quyền ứng dụng</h3>
+        <table class="spec-table">
+          <tr><th>CAMERA</th><td>Chụp ảnh và quay video trong Camera Studio</td></tr>
+          <tr><th>RECORD_AUDIO</th><td>Ghi âm thanh khi quay video (tuỳ chọn)</td></tr>
+          <tr><th>READ_MEDIA_IMAGES / VIDEO</th><td>Đọc file bạn chọn để import vào thư viện local</td></tr>
+          <tr><th>USE_BIOMETRIC</th><td>Mở khoá ứng dụng bằng vân tay/khuôn mặt</td></tr>
+          <tr><th>POST_NOTIFICATIONS</th><td>Thông báo khi tác vụ nền hoàn tất</td></tr>
+          <tr><th>INTERNET</th><td><strong>Không khai báo</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">7. Xoá dữ liệu</h3>
+        <p style="color:var(--muted)">
+          Bạn có thể xoá từng file, xoá toàn bộ dữ liệu trong Security Center, hoặc gỡ ứng dụng —
+          gỡ cài đặt sẽ xoá toàn bộ thư mục dữ liệu riêng của VCAM PRO.
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">8. Trẻ em</h3>
+        <p style="color:var(--muted)">
+          Ứng dụng không hướng tới trẻ em dưới 13 tuổi. Không có nội dung tải về, không có mạng xã hội.
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">9. Thay đổi chính sách</h3>
+        <p style="color:var(--muted)">
+          Mọi thay đổi sẽ được công bố trên trang này kèm ngày cập nhật. Vì ứng dụng không có kênh
+          liên lạc ra ngoài, bạn nên xem lại trang này sau mỗi bản phát hành.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 VCAM PRO ULTIMATE VIP.</span>
+      <a href="index.html">Trang chủ</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>
