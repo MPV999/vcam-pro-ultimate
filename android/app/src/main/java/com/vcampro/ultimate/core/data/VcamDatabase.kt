@@ -28,7 +28,7 @@ import javax.inject.Singleton
         ActivityLogEntity::class,
         ExportHistoryEntity::class
     ],
-    version = VcamDatabase.VERSION,
+    version = 2,
     exportSchema = true
 )
 abstract class VcamDatabase : RoomDatabase() {

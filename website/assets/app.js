@@ -48,8 +48,15 @@
     });
   }
 
+  function statusLabel(status) {
+    if (status === "stable") return "Stable";
+    if (status === "debug") return "Bản thử nghiệm (debug)";
+    return "Chưa phát hành";
+  }
+
   function applyRelease(data) {
-    var hasStable = data && data.status === "stable" && data.downloadUrl;
+    var status = (data && data.status) || "pending";
+    var hasDownload = !!(data && data.downloadUrl && (status === "stable" || status === "debug"));
     var notice = document.getElementById("release-notice");
     var button = document.getElementById("download-button");
     var hashButton = document.getElementById("sha256-button");
@@ -65,13 +72,15 @@
         (data.architectures || []).join(" · ") || "arm64-v8a"
       );
       setText("[data-release='sha256']", data.sha256 || "Sẽ được công bố khi phát hành");
-      setText("[data-release='status']", hasStable ? "Stable" : "Chưa phát hành");
+      setText("[data-release='status']", statusLabel(status));
     }
 
-    if (hasStable) {
+    if (hasDownload) {
       if (button) {
         button.setAttribute("href", data.downloadUrl);
         button.setAttribute("aria-disabled", "false");
+        button.setAttribute("target", "_blank");
+        button.setAttribute("rel", "noopener");
         button.textContent = "DOWNLOAD VCAM PRO APK";
       }
       if (hashButton && data.sha256Url) {
@@ -79,21 +88,29 @@
         hashButton.style.display = "inline-flex";
       }
       if (notice) {
-        notice.className = "notice ok";
-        notice.textContent =
-          "Bản phát hành stable đã sẵn sàng. File APK được phân phối trực tiếp từ GitHub Releases, không cần đăng nhập.";
+        if (status === "stable") {
+          notice.className = "notice ok";
+          notice.textContent =
+            "Bản phát hành stable đã sẵn sàng. File APK tải trực tiếp từ GitHub Releases, không cần đăng nhập.";
+        } else {
+          notice.className = "notice";
+          notice.textContent =
+            "Đây là APK thử nghiệm do GitHub Actions build tự động và ký bằng debug key. " +
+            "Cài được trên máy thật để trải nghiệm, nhưng KHÔNG phải bản phát hành stable.";
+        }
       }
     } else {
       if (button) {
         button.setAttribute("href", "#");
         button.setAttribute("aria-disabled", "true");
-        button.textContent = "CHƯA CÓ BẢN PHÁT HÀNH STABLE";
+        button.textContent = "CHƯA CÓ BẢN PHÁT HÀNH";
       }
       if (hashButton) hashButton.style.display = "none";
       if (notice) {
         notice.className = "notice";
         notice.textContent =
-          "Chưa có bản phát hành stable. APK sẽ được tạo tự động bởi GitHub Actions khi repository được gắn tag phiên bản (ví dụ v1.0.0). Không có link tải giả trên trang này.";
+          "Chưa có file APK nào được phát hành. GitHub Actions sẽ tự tạo bản build thử nghiệm " +
+          "ngay khi build thành công trên nhánh main — sau đó trang này tự cập nhật link tải thật.";
       }
     }
   }

@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -42,30 +42,120 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Validate Gradle project
-        run: ./gradlew projects --stacktrace
+      # Bước biên dịch riêng để lỗi Kotlin lộ ra sớm và rõ ràng.
+      - name: Compile Kotlin (debug)
+        id: compile
+        run: |
+          set -o pipefail
+          ./gradlew :app:compileDebugKotlin --console=plain --stacktrace 2>&1 \
+            | tee "$RUNNER_TEMP/compile.log"
+
+      # Đẩy lỗi biên dịch thành annotation để đọc được ngay trên trang checks.
+      - name: Report Kotlin errors
+        if: failure()
+        run: |
+          LOG="$RUNNER_TEMP/compile.log"
+          TOTAL=$(grep -cE '^e: ' "$LOG" || true)
+          echo "Tổng số dòng lỗi Kotlin: $TOTAL" >> "$GITHUB_STEP_SUMMARY"
+          grep -E '^e: ' "$LOG" | head -n 12 | while IFS= read -r line; do
+            echo "::error::$line"
+            echo "- $line" >> "$GITHUB_STEP_SUMMARY"
+          done
+          grep -E 'error:|FAILURE:|What went wrong' "$LOG" | head -n 5 | while IFS= read -r line; do
+            echo "::error::$line"
+          done
+          exit 1
 
       - name: Run Lint
-        run: ./gradlew :app:lintDebug --stacktrace
+        run: ./gradlew :app:lintDebug --console=plain --stacktrace
 
       - name: Run unit tests
-        run: ./gradlew :app:testDebugUnitTest --stacktrace
+        run: ./gradlew :app:testDebugUnitTest --console=plain --stacktrace
 
       - name: Build debug APK
-        run: ./gradlew :app:assembleDebug --stacktrace
+        run: ./gradlew :app:assembleDebug --console=plain --stacktrace
 
-      - name: Compute debug APK checksum
+      - name: Collect APK and checksum
+        id: collect
         run: |
+          set -e
           APK=$(find app/build/outputs/apk/debug -name '*.apk' | head -n 1)
-          echo "APK: $APK"
-          sha256sum "$APK" | tee debug-apk-sha256.txt
+          if [ -z "$APK" ]; then echo "Không tìm thấy APK debug"; exit 1; fi
+          mkdir -p ../dist
+          cp "$APK" ../dist/vcam-pro-ultimate.apk
+          SIZE=$(stat -c%s ../dist/vcam-pro-ultimate.apk)
+          SHA=$(sha256sum ../dist/vcam-pro-ultimate.apk | awk '{print $1}')
+          echo "$SHA  vcam-pro-ultimate.apk" > ../dist/vcam-pro-ultimate.apk.sha256
+          echo "size=$SIZE" >> "$GITHUB_OUTPUT"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "APK: $SIZE bytes · SHA-256 $SHA"
 
-      - name: Upload debug APK
+      - name: Upload debug APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: vcam-pro-debug-apk
           path: android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
+
+      # Phát hành APK thử nghiệm công khai để có link tải thật (không cần đăng nhập).
+      - name: Publish test release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest-apk
+          name: VCAM PRO — APK thử nghiệm (build tự động)
+          prerelease: true
+          body: |
+            Bản build tự động từ nhánh `main`, commit `${{ github.sha }}`.
+
+            **Đây là APK ký bằng debug key — chỉ dùng để cài thử.**
+            Bản phát hành stable cần keystore riêng (xem `docs/INSTALLATION.md`).
+
+            - SHA-256: `${{ steps.collect.outputs.sha }}`
+            - Dung lượng: `${{ steps.collect.outputs.size }}` bytes
+          files: |
+            dist/vcam-pro-ultimate.apk
+            dist/vcam-pro-ultimate.apk.sha256
+
+      - name: Update website release metadata
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          REPO: ${{ github.repository }}
+          SHA: ${{ steps.collect.outputs.sha }}
+          SIZE: ${{ steps.collect.outputs.size }}
+        run: |
+          set -e
+          VERSION=$(grep -oP 'versionName = "\K[^"]+' app/build.gradle.kts | head -n 1)
+          RELEASE_DATE=$(date -u +%Y-%m-%d)
+          mkdir -p ../website/data
+          cat > ../website/data/release.json <<EOF
+          {
+            "appName": "VCAM PRO ULTIMATE VIP 2026",
+            "version": "${VERSION}",
+            "buildNumber": "${{ github.run_number }}",
+            "releaseDate": "${RELEASE_DATE}",
+            "apkSizeBytes": ${SIZE},
+            "minAndroid": "Android 8.0 (API 26)",
+            "architectures": ["arm64-v8a", "armeabi-v7a", "x86_64"],
+            "sha256": "${SHA}",
+            "downloadUrl": "https://github.com/${REPO}/releases/download/latest-apk/vcam-pro-ultimate.apk",
+            "sha256Url": "https://github.com/${REPO}/releases/download/latest-apk/vcam-pro-ultimate.apk.sha256",
+            "releaseNotesUrl": "https://github.com/${REPO}/releases/tag/latest-apk",
+            "repository": "${REPO}",
+            "status": "debug"
+          }
+          EOF
+          cat ../website/data/release.json
+
+      - name: Commit release metadata
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          cd ..
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website/data/release.json
+          git commit -m "chore: cập nhật metadata APK thử nghiệm $(date -u +%Y-%m-%d)" || echo "Không có thay đổi"
+          git push || echo "Không push được metadata (bỏ qua)"
 
       - name: Upload test and lint reports
         if: always()
