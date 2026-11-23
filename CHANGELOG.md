@@ -1,6 +1,22 @@
 # Lịch sử phiên bản
 
-## v1.0.0 — Bản đầu tiên (chưa phát hành)
+## Kênh tải APK
+
+| Kênh | Trạng thái | Ghi chú |
+|---|---|---|
+| GitHub Releases (`latest-apk`) | APK debug, tự động | Tạo bởi `android-build.yml` mỗi khi build trên `main` thành công. Ký bằng debug key — chỉ để cài thử. |
+| GitHub Releases (`v*`) | Bản stable | Chỉ tạo khi có keystore riêng và gắn tag phiên bản. |
+
+Link tải trực tiếp (không cần đăng nhập):
+
+```
+https://github.com/MPV999/vcam-pro-ultimate/releases/download/latest-apk/vcam-pro-ultimate.apk
+```
+
+`website/data/release.json` được CI cập nhật sau mỗi lần build xanh, nên trang
+`download.html` luôn trỏ tới file APK có thật.
+
+## v1.0.0 — Bản đầu tiên (chưa phát hành stable)
 
 ### Android app
 - **Dashboard**: số liệu thật từ Room (ảnh, video, hồ sơ, tác vụ, dung lượng), biểu đồ 7 ngày,
