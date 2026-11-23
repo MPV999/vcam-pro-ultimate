@@ -31,6 +31,9 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          # Tự bật GitHub Pages (nguồn: GitHub Actions) nếu repository chưa cấu hình
+          enablement: true
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
